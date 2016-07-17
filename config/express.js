@@ -1,4 +1,5 @@
-var express = require('express'),
+var config = require('./config')
+    express = require('express'),
     morgan = require('morgan').
     compress = require('compression'),
     bodyParser = require('body-parser'),
@@ -48,7 +49,7 @@ var configureEnvironment = function(app){
 };
 
 var configureBaseForSession = function(app){
-  app.use(sessiona({
+  app.use(session({
     saveUninitialized : true,
     resave : true,
     secret : config.sessionSecret
