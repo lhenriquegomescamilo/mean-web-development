@@ -15,6 +15,8 @@ module.exports = function(){
 
   configureViewPages(app);
 
+  configureBaseForSession(app);
+
   require('../app/routes/index.server.routes.js')(app);
 
   app.use(express.static('./public'));
@@ -25,7 +27,7 @@ var configureBodyParser = function(app){
   app.use(bodyParser.urlencoded({
     extended : true
   }));
-  
+
   app.use(bodyParser.json());
   app.use(methodOverride());
 
@@ -43,4 +45,12 @@ var configureEnvironment = function(app){
   }else if(process.env.NODE_ENV === 'production'){
     app.use(compress());
   }
+};
+
+var configureBaseForSession = function(app){
+  app.use(sessiona({
+    saveUninitialized : true,
+    resave : true,
+    secret : config.sessionSecret
+  }));
 };
