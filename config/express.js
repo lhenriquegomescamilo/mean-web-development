@@ -1,6 +1,6 @@
 var config = require('./config')
     express = require('express'),
-    morgan = require('morgan').
+    morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
@@ -10,7 +10,7 @@ var config = require('./config')
 module.exports = function(){
   var app = express();
 
-  configureEnvironment()
+  configureEnvironment();
 
   configureBodyParser(app);
 
