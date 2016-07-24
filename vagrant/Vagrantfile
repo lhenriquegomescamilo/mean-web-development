@@ -14,6 +14,7 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
   config.vm.network "public_network", ip: "192.168.1.4", guest: 80, host: 8001
+  config.vm.network :forwarded_port, guest: 1234, host: 1234    # node
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -78,17 +79,16 @@ Vagrant.configure(2) do |config|
      sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
      echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
      sudo apt-get update
-     sudo apt-get install -y mongodb-org
+     sudo apt-get install -y npm git  mongodb-org
+     apt-get install -y python-software-properties python g++ make
+     add-apt-repository -y ppa:chris-lea/node.js
+     apt-get update
+     apt-get install -y nodejs
      service mongod status
-     sudo apt-get update -y
-     sudo apt-get install -y nodejs
-     sudo apt-get install -y npm
-     sudo apt-get install git -y
      git clone https://github.com/lhenriquegomescamilo/mean-web-development.git
      cd mean-web-development
      sudo git pull origin master
      sudo npm install
-     sudo node server
-
+     node server
    SHELL
 end
